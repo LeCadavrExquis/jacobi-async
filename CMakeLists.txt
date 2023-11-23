@@ -4,7 +4,12 @@ project(jacobi_async C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(
-        jacobi_async main.c
+        jacobi_async
+        main.c
         utils.h
         utils.c
+        alg.c
+        alg.h
 )
+
+target_link_libraries(jacobi_async m)
