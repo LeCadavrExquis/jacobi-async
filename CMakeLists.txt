@@ -3,4 +3,8 @@ project(jacobi_async C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(jacobi_async main.c)
+add_executable(
+        jacobi_async main.c
+        utils.h
+        utils.c
+)
