@@ -7,6 +7,5 @@
 bool isMatrixDDM(double** matrix, int n);
 void generateDDMMatrix(double** matrix, int n);
 void generateVector(double* vector, int n);
-double vectorNormDifference(double* x1, double* x2, int vectorSize);
 
 #endif

@@ -24,7 +24,7 @@ bool isMatrixDDM(double** matrix, int n) {
 }
 
 /**
- * Generuje macierz z losowymi wartościami między -1 i 1,
+ * Generuje macierz z losowymi wartościami między 0.01 i 1.01,
  * w której spełniony jest warunek bezwzględnej dominacji wierszowej głównejprzekątnej
  * @param n wymiar macierzy
  * @return wygenerowana macierz
@@ -33,9 +33,8 @@ void generateDDMMatrix(double** matrix, int n) {
     for (int i = 0; i < n; i++) {
         double sum = 0.0;
         for (int j = 0; j < n; j++) {
-            double toDouble = 1.0;
             if (i != j) {
-                matrix[i][j] = ((toDouble * rand() / RAND_MAX) * 2) - 1;
+                matrix[i][j] =  0.01f + ((double)rand() / RAND_MAX);
                 sum += fabs(matrix[i][j]);
             }
         }
@@ -53,18 +52,4 @@ void generateVector(double* vector, int n) {
         double toDouble = 1.0;
         vector[i] = ((toDouble * rand() / RAND_MAX) * 2) - 1;
     }
-}
-
-/**
- * Funkcja obliczająca różnicę norm x dla kolejnych iteracji w celu zdefiniowania warunku stopu
- * @return różnica norm wektorów
- */
-double vectorNormDifference(double* x1, double* x2, int vectorSize) {
-    double normDifference = 0.0;
-    for (int i = 0; i < vectorSize; i++) {
-        normDifference += pow(x1[i] - x2[i], 2);
-    }
-    normDifference = sqrt(normDifference);
-
-    return normDifference;
 }
