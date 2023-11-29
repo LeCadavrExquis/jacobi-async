@@ -4,8 +4,10 @@
 #include <string.h>
 #include "utils.h"
 #include "alg.h"
+#include "omp.h"
 
 int main() {
+    omp_set_num_threads(8);
     int MATRIX_SIZE = 1000;
     printf("Generowanie macierzy %d x %d\n", MATRIX_SIZE, MATRIX_SIZE);
     double **matrix = malloc(MATRIX_SIZE * sizeof(double *));
@@ -37,14 +39,14 @@ int main() {
         memcpy(currentX, nextX, MATRIX_SIZE * sizeof(double));
         iterationCount++;
 
-        printf("i = %d, err = %f\n", iterationCount, relativeError);
+//        printf("i = %d, err = %f\n", iterationCount, relativeError);
     }
     struct timespec stopTimestamp;
     clock_gettime(CLOCK_REALTIME, &stopTimestamp);
 
-    long timeElapsedNs = (stopTimestamp.tv_sec - startTimestamp.tv_sec) * 1e9 + (stopTimestamp.tv_nsec - startTimestamp.tv_nsec);
+    long long timeElapsedNs = (long long)(stopTimestamp.tv_sec - startTimestamp.tv_sec) * 1e9 + (stopTimestamp.tv_nsec - startTimestamp.tv_nsec);
     long timeElapsedS = timeElapsedNs / 1e9;
-    long timeElapsedMs = (timeElapsedNs % (long)1e9) / 1e6;
+    long timeElapsedMs = (timeElapsedNs % (long long)1e9) / 1e6;
 
     printf("Obliczenia zakończone po %d iteracjach\n", iterationCount);
     printf("Czas obliczeń: %ld s i %ld ms\n", timeElapsedS, timeElapsedMs);

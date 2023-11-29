@@ -1,6 +1,7 @@
 #include <math.h>
 #include <malloc.h>
 #include "alg.h"
+#include "omp.h"
 
 /**
  * Implementacja asynchronicznej wersji algorytmu Jacobiego iteracyjnego
@@ -15,6 +16,7 @@ void computeIteration(
         double* vector,
         int matrixSize
 ) {
+#pragma omp parallel for
     for (int i = 0; i < matrixSize; ++i) {
         double sum = 0;
         for (int j = 0; j < matrixSize; j++) {
@@ -22,10 +24,10 @@ void computeIteration(
                 sum += matrix[i][j] * x[j];
             }
         }
-
         nextX[i] = (1 / matrix[i][i]) * (vector[i] - sum);
     }
 }
+
 
 
 /**
@@ -34,13 +36,16 @@ void computeIteration(
  *  @param matrixSize -> N
  */
 void computeMatrixMultiplication(double* result, double* v, double** A, int matrixSize) {
+#pragma omp parallel for
     for(int i = 0; i < matrixSize; i++){
-        result[i] = 0;
+        double temp = 0;
         for(int j = 0; j< matrixSize; j++){
-            result[i] += A[i][j] * v[j];
+            temp += A[i][j] * v[j];
         }
+        result[i] = temp;
     }
 }
+
 
 /**
  * Funkcja obliczająca normę błedu ||Ax - b||
