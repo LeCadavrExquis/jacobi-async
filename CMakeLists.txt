@@ -3,12 +3,13 @@ project(jacobi_async C)
 
 set(CMAKE_C_STANDARD 11)
 
-#find_package(MPI REQUIRED)
-#
-#include_directories(${MPI_C_INCLUDE_PATH})
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MPI_C_COMPILE_FLAGS}")
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_C_LINK_FLAGS}")
-#set(MPI_LIBRARIES ${MPI_C_LIBRARIES})
+find_package(MPI REQUIRED)
+
+include_directories(${MPI_C_INCLUDE_PATH})
+set(CMAKE_C_COMPILER smpicc)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MPI_C_COMPILE_FLAGS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_C_LINK_FLAGS}")
+set(MPI_LIBRARIES ${MPI_C_LIBRARIES})
 
 add_executable(
         jacobi_async
@@ -19,11 +20,10 @@ add_executable(
         alg.h
 )
 
-target_link_libraries(jacobi_async m)
-#target_compile_options(jacobi_async PUBLIC ${MPI_C_COMPILE_OPTIONS})
-#target_link_options(jacobi_async PUBLIC ${MPI_C_LINK_OPTIONS})
-#target_link_libraries(
-#        jacobi_async
-#        PUBLIC ${MPI_C_LIBRARIES}
-#        m
-#)
+target_compile_options(jacobi_async PUBLIC ${MPI_C_COMPILE_OPTIONS})
+target_link_options(jacobi_async PUBLIC ${MPI_C_LINK_OPTIONS})
+target_link_libraries(
+        jacobi_async
+        PUBLIC ${MPI_C_LIBRARIES}
+        m
+)
