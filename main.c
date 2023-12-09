@@ -3,8 +3,7 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
-#include <mpi.h>
-#include "alg.h"
+#include <mpi/mpi.h>
 #include "utils.h"
 
 void parallelComputeIteration(double* localX, double* globalX, double** matrix, double* vector, int matrixSize, int localSize, int world_rank) {
