@@ -1,0 +1,1 @@
+#Asynchroniczna implementacja iteracyjnego algorytmu Jacobiniego
